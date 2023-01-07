@@ -2,14 +2,14 @@ import Item from "../interfaces/item.interface"
 import Option from "../interfaces/option.interface"
 
 interface SelectProps {
-    handleChange: (event:any) => void,
+    handleChange: (event: any) => void,
     item: Item
 }
 const SelectComponent = ({ handleChange, item }: SelectProps) => {
     const { label, name, options } = item
 
     return (
-        <>
+        <div className="w-full flex-wrap flex justify-between items-center">
             <label className='text-white'>
                 {label}
             </label>
@@ -22,7 +22,7 @@ const SelectComponent = ({ handleChange, item }: SelectProps) => {
                     ))
                 }
             </select>
-        </>
+        </div>
     )
 }
 

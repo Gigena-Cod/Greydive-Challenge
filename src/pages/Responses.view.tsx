@@ -1,5 +1,6 @@
 import { collection, DocumentData, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react"
+import CardResponseComponent from "../components/CardResponse.component";
 import db from "../firebase/firebaseConfig";
 
 const ResponsesView = () => {
@@ -28,37 +29,10 @@ const ResponsesView = () => {
                     RESPUESTAS
                 </h1>
                 <hr className="bg-white mb-8 mt-2 w-full" />
-                <div className="w-full gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 cards__container">
+                <div className="w-full gap-8 grid grid-cols-1 md:grid-cols-3 cards__container">
                     {
-                        responses && responses.map((response: DocumentData, index: number) => (
-                            <div key={index} className="transition-all duration-300 select-none ease-in-out shadow  hover:shadow-white p-4 rounded border card">
-
-                                <div className="flex gap-x-2 text-white name__full">
-                                    <span className="font-bold text">
-                                        Nombre completo:
-                                    </span>
-                                    <span className="value">
-                                        {response.full_name}
-                                    </span>
-                                </div>
-                                <div className="flex gap-x-2 text-white name__full">
-                                    <span className="font-bold  text">
-                                        Email:
-                                    </span>
-                                    <span className="value">
-                                        {response.email}
-                                    </span>
-                                </div>
-                                <div className="flex gap-x-2 text-white name__full">
-                                    <span className="font-bold  text">
-                                        Fecha de nacimiento:
-                                    </span>
-                                    <span className="value">
-                                        {response.birth_date}
-                                    </span>
-                                </div>
-                            </div>
-                        )
+                        responses && responses.map((response: DocumentData, index: number) =>
+                            (<CardResponseComponent key={index} birth_date={response.birth_date} email={response.email} full_name={response.full_name} country_of_origin={response.country_of_origin} />)
                         )
                     }
                 </div>

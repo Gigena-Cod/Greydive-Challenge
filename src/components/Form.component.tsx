@@ -1,65 +1,44 @@
-import { addDoc, collection } from 'firebase/firestore';
-import { useState } from 'react'
 import dataForm from '.././data/db.json'
-import db from "../firebase/firebaseConfig";
+import useForm from '../hooks/useForm.component';
 import Item from '../interfaces/item.interface'
+import Response from '../interfaces/response.interface';
 import ButtonComponent from './Button.component'
 import InputComponent from './Input.component'
+import NotificationPopupComponent from './Modal.component';
 import SelectComponent from './Select.component'
+
+const initValues: Response = {
+    birth_date: "",
+    email: "",
+    full_name: "",
+    country_of_origin: ""
+}
+
 const FormComponent = () => {
 
     const fields: Item[] = dataForm.items
+    const { send, onHandlerSubmit, onHandlerInputChange } = useForm(initValues)
 
-    const [formData, setFormData] = useState({})
-
-    const handleInputChange = (event: any) => {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value
-        })
-    }
-    const onHandlerSubmit = async (event: any) => {
-        event.preventDefault()
-        console.log('onHandlerSubmit')
-        addNewResponse(formData)
-        reset(event)
-    }
-
-    const reset = (event: any) => {
-        setFormData({})
-        event.target.reset()
-    }
-
-    const addNewResponse = async (formResponse: any) => {
-        try {
-            const docRef = await addDoc(collection(db, "forms"), formResponse);
-            console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-            console.error("Error adding document: ", e);
-
-        }
-    }
     return (
 
-        <form onSubmit={onHandlerSubmit} className="grid grid-cols-1 gap-8 form_container">
+        <>
+            <form onSubmit={onHandlerSubmit} className="rounded hover:shadow-xl transition-all duration-500 ease-in-out bg-black bg-opacity-40 w-full md:w-[26rem] mx-auto p-5 grid grid-cols-1 gap-6 form_container">
 
-            {
-                fields && fields.map((item, index) => (
+                {fields && fields.map((item, index) => (
 
-                    < div key={index} className="flex gap-2 item" >
+                    <div key={index} className="flex gap-2 item">
 
                         {['text', 'email', 'date', 'checkbox'].includes(item.type) && <InputComponent
-                            handleChange={handleInputChange} item={item} />}
+                            handleChange={onHandlerInputChange} item={item} />}
 
-                        {item.type === 'select' && <SelectComponent handleChange={handleInputChange} item={item} />}
+                        {item.type === 'select' && <SelectComponent handleChange={onHandlerInputChange} item={item} />}
 
                         {item.type === 'submit' && <ButtonComponent {...item} />}
                     </div>
-                ))
-            }
-
-
-        </form >
+                ))}
+            </form>
+            <NotificationPopupComponent send={send} />
+        </>
     )
 }
 
