@@ -2,7 +2,7 @@ import Response from "../interfaces/response.interface"
 
 const CardResponseComponent = ({ full_name, email, birth_date, country_of_origin }: Response) => {
     return (
-        <div className="transition-all duration-300 select-none ease-in-out shadow  hover:shadow-white p-4 rounded border card">
+        <div className="transition-all duration-300 select-none ease-in-out bg-black bg-opacity-70  hover:shadow p-4 rounded border card">
 
             <div className="flex gap-x-2 text-white name__full">
                 <span className="font-bold text">

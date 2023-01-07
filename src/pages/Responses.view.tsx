@@ -23,12 +23,12 @@ const ResponsesView = () => {
     }, [])
 
     return (
-        <div className="bg-black p-8 h-screen responses__view">
+        <div className="bg-gray-100 p-8 h-screen responses__view">
             <div className="max-w-7xl mx-auto responses__container">
-                <h1 className="text-white text-center font-semibold text-4xl">
+                <h1 className="text-center font-semibold text-4xl">
                     RESPUESTAS
                 </h1>
-                <hr className="bg-white mb-8 mt-2 w-full" />
+                <hr className="bg-gray-900 mb-8 mt-2 w-full" />
                 <div className="w-full gap-8 grid grid-cols-1 md:grid-cols-3 cards__container">
                     {
                         responses && responses.map((response: DocumentData, index: number) =>
