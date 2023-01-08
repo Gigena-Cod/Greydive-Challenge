@@ -38,7 +38,6 @@ const FormComponent = () => {
                 ))}
             </form>
             <NotificationPopupComponent show={send} cssClass={'text-[#1F2023]  bg-[#EAFF6A]'} />
-            <NotificationPopupComponent show={error} cssClass={'text-white  bg-[#f44336]'} />
         </>
     )
 }
