@@ -17,7 +17,7 @@ const ResponsesView = () => {
                 <h1 className="text-center text-white font-semibold text-4xl">
                     RESPUESTAS
                 </h1>
-                <hr className="bg-gray-900 mb-10 mt-2 w-full" />
+                <hr className="bg-[#E5F876] mb-10 mt-2 w-full" />
                 {
                     loading ? (<SpinnerComponent cssClassIcon={"h-16 w-16"} />)
                         : (<div className="w-full gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 cards__container">

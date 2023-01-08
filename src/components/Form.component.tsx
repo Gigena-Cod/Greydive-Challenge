@@ -17,7 +17,7 @@ const initValues: Response = {
 const FormComponent = () => {
 
     const fields: Item[] = dataForm.items
-    const { send, error, loading, onHandlerSubmit, onHandlerInputChange } = useForm(initValues)
+    const { send, loading, onHandlerSubmit, onHandlerInputChange } = useForm(initValues)
 
     return (
 
