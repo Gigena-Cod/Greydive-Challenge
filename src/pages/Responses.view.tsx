@@ -1,41 +1,34 @@
-import { collection, DocumentData, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react"
+import { DocumentData } from "firebase/firestore";
+import { useEffect } from "react";
 import CardResponseComponent from "../components/CardResponse.component";
-import db from "../firebase/firebaseConfig";
+import SpinnerComponent from "../components/Spinner.component";
+import useResponseData from "../hooks/useResponses";
 
 const ResponsesView = () => {
-    const [responses, setResponses] = useState<DocumentData[]>([])
-
-    const getResponses = async () => {
-
-        const responsesData = await getDocs(collection(db, "forms"));
-
-        let newArray: DocumentData[] = []
-        responsesData.forEach((doc) => {
-            let newDoc = doc.data()
-            newArray.push(newDoc)
-        });
-        setResponses(newArray)
-    }
+    const { responsesData, getResponsesData, loading } = useResponseData()
 
     useEffect(() => {
-        getResponses()
+        getResponsesData()
     }, [])
 
     return (
-        <div className="bg-gray-100 p-8 h-screen responses__view">
-            <div className="max-w-7xl mx-auto responses__container">
-                <h1 className="text-center font-semibold text-4xl">
+        <div className="background p-8 min-h-screen w-full responses__view">
+            <div className="max-w-7xl w-full mx-auto responses__container">
+                <h1 className="text-center text-white font-semibold text-4xl">
                     RESPUESTAS
                 </h1>
-                <hr className="bg-gray-900 mb-8 mt-2 w-full" />
-                <div className="w-full gap-8 grid grid-cols-1 md:grid-cols-3 cards__container">
-                    {
-                        responses && responses.map((response: DocumentData, index: number) =>
-                            (<CardResponseComponent key={index} birth_date={response.birth_date} email={response.email} full_name={response.full_name} country_of_origin={response.country_of_origin} />)
-                        )
-                    }
-                </div>
+                <hr className="bg-gray-900 mb-10 mt-2 w-full" />
+                {
+                    loading ? (<SpinnerComponent cssClassIcon={"h-16 w-16"} />)
+                        : (<div className="w-full gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 cards__container">
+                            {
+                                responsesData.map((response: DocumentData, index: number) =>
+                                    (<CardResponseComponent key={index} birth_date={response.birth_date} email={response.email} full_name={response.full_name} country_of_origin={response.country_of_origin} />)
+                                )
+                            }
+
+                        </div>)
+                }
             </div>
         </div>
     )

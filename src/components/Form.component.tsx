@@ -1,5 +1,5 @@
 import dataForm from '.././data/db.json'
-import useForm from '../hooks/useForm.component';
+import useForm from '../hooks/useForm';
 import Item from '../interfaces/item.interface'
 import Response from '../interfaces/response.interface';
 import ButtonComponent from './Button.component'
@@ -17,7 +17,7 @@ const initValues: Response = {
 const FormComponent = () => {
 
     const fields: Item[] = dataForm.items
-    const { send, onHandlerSubmit, onHandlerInputChange } = useForm(initValues)
+    const { send, loading,onHandlerSubmit, onHandlerInputChange } = useForm(initValues)
 
     return (
 
@@ -33,7 +33,7 @@ const FormComponent = () => {
 
                         {item.type === 'select' && <SelectComponent handleChange={onHandlerInputChange} item={item} />}
 
-                        {item.type === 'submit' && <ButtonComponent {...item} />}
+                        {item.type === 'submit' && <ButtonComponent item={item} loading={loading}/>}
                     </div>
                 ))}
             </form>

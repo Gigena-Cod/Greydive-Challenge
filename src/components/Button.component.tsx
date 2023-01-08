@@ -1,11 +1,21 @@
 import Item from "../interfaces/item.interface"
+import SpinnerComponent from "./Spinner.component"
 
+interface ButtonProps {
+    item: Item
+    loading: boolean
+}
 
-
-const ButtonComponent = (item: Item) => (
-    <div className="w-full button">
-        <input className='rounded w-full h-10 font-semibold hover:bg-white bg-black hover:text-black text-white transition-all duration-300 border border-white ease-in cursor-pointer uppercase' {...item} />
-    </div>
+const ButtonComponent = ({ item, loading }: ButtonProps) => (
+    <>
+        {
+            loading
+                ? <SpinnerComponent cssClassIcon={"h-6 w-6"} />
+                : (<div className="w-full bg-[#EAFF6A] rounded button">
+                    <input className='rounded w-full h-10 text-[#1F2023] transition-all duration-300 ease-in cursor-pointer uppercase' {...item} />
+                </div>)
+        }
+    </>
 )
 
 
