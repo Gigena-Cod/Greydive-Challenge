@@ -6,6 +6,7 @@ import Response from "../interfaces/response.interface"
 const useForm = (initValues: Response) => {
 
     const [send, setSend] = useState(false)
+    const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [values, setValues] = useState(initValues)
 
@@ -15,19 +16,24 @@ const useForm = (initValues: Response) => {
     }
 
     const addNewResponse = async (formResponse: any) => {
-        try {
-            setLoading(true)
-            const docRef = await addDoc(collection(db, "forms"), formResponse);
-            setSend(true)
-            setLoading(false)
 
+        setLoading(true)
+        try {
+
+            await addDoc(collection(db, "forms"), formResponse);
+
+            setSend(true)
             setTimeout(() => {
                 setSend(false)
             }, 4000)
 
         } catch (e) {
-            console.error("Error adding document: ", e);
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 4000)
         }
+        setLoading(false)
     }
 
     const onHandlerSubmit = async (event: any) => {
@@ -50,6 +56,7 @@ const useForm = (initValues: Response) => {
     return {
         send,
         loading,
+        error,
         onHandlerSubmit,
         onHandlerInputChange
     }

@@ -11,13 +11,13 @@ const initValues: Response = {
     birth_date: "",
     email: "",
     full_name: "",
-    country_of_origin: ""
+    country_of_origin: "Argentina"
 }
 
 const FormComponent = () => {
 
     const fields: Item[] = dataForm.items
-    const { send, loading,onHandlerSubmit, onHandlerInputChange } = useForm(initValues)
+    const { send, error, loading, onHandlerSubmit, onHandlerInputChange } = useForm(initValues)
 
     return (
 
@@ -33,11 +33,12 @@ const FormComponent = () => {
 
                         {item.type === 'select' && <SelectComponent handleChange={onHandlerInputChange} item={item} />}
 
-                        {item.type === 'submit' && <ButtonComponent item={item} loading={loading}/>}
+                        {item.type === 'submit' && <ButtonComponent item={item} loading={loading} />}
                     </div>
                 ))}
             </form>
-            <NotificationPopupComponent send={send} />
+            <NotificationPopupComponent show={send} cssClass={'text-[#1F2023]  bg-[#EAFF6A]'} />
+            <NotificationPopupComponent show={error} cssClass={'text-white  bg-[#f44336]'} />
         </>
     )
 }
