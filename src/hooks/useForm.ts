@@ -6,7 +6,6 @@ import Response from "../interfaces/response.interface"
 const useForm = (initValues: Response) => {
 
     const [send, setSend] = useState(false)
-    const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [values, setValues] = useState(initValues)
 
@@ -25,13 +24,10 @@ const useForm = (initValues: Response) => {
             setSend(true)
             setTimeout(() => {
                 setSend(false)
-            }, 4000)
+            }, 6000)
 
         } catch (e) {
-            setError(true)
-            setTimeout(() => {
-                setError(false)
-            }, 4000)
+            console.log("Error description"+e)
         }
         setLoading(false)
     }
@@ -56,7 +52,6 @@ const useForm = (initValues: Response) => {
     return {
         send,
         loading,
-        error,
         onHandlerSubmit,
         onHandlerInputChange
     }
